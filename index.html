@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    /* Container */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #050414;
+}
+
+/* Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  height: 600px;
+  background-color: #111;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  background-color: #060025;
+  position: relative;
+}
+
+.card-header img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  box-shadow: 0 0 10px 2px #ffffff;
+}
+
+.card-header h1, .card-header h2 {
+  margin: 0;
+  font-size: 36px;
+  color: #fff;
+ 
+}
+
+.card-header h3 {
+  font-size: 18px;
+  padding-top: 10px;
+  Color: rgb(48, 25, 182);
+  margin-bottom: 40px;
+}
+
+/* Body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  background-color: #060018;
+  color: #fff;
+  text-align: center;
+  padding: 40px;
+}
+
+.card-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-body li {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.card-body li strong {
+    color: rgb(19, 0, 129);
+}
+
+/* Animation */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px 2px #11005a, 0 0 20px 10px #1e02c0;
+  }
+  50% {
+    box-shadow: 0 0 10px 2px #000c77, 0 0 40px 20px #06005a;
+  }
+  100% {
+    box-shadow: 0 0 10px 2px #0400e0, 0 0 20px 10px #1500d3;
+  }
+}
+
+.card:hover {
+  animation: glow 1s infinite;
+}
+
+</style>
+<body>
+    <div class="card-container">
+  <div class="card">
+    <div class="card-header">
+      <img src="https://i.pinimg.com/564x/3e/42/22/3e4222fda77d71cf20f6aa7983874233.jpg" alt="Profile Picture">
+      <h1 id="dynamic-heading"></h1>
+      <h3 id="dynamic-heading2"></h3>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Hobi :</strong> <span id="dynamic-heading3"></span></li>
+        <li ><strong>Skill :</strong> <span id="dynamic-heading4"></span> </li>
+        <li ><strong>Goals :</strong> <span id="dynamic-heading5"></span> </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+    function fetchData() {
+	const sheetId = '1kha1zKD00oGkoIHpr_vwuNJlyZ16owRfORbpbIsLJAc';
+	const sheetName = 'Latihan-1';
+	const apiKey = 'AIzaSyAFluiRv4q-gdrkb8_EYCmV-77-Eyva8WI';
+	const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
+
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			const dynamicHeading = document.getElementById('dynamic-heading');
+			dynamicHeading.innerHTML = data.values[0][1];
+
+            const dynamicHeading2 = document.getElementById('dynamic-heading2');
+			dynamicHeading2.innerHTML = data.values[1][1];
+
+            const dynamicHeading3 = document.getElementById('dynamic-heading3');
+			dynamicHeading3.innerHTML = data.values[2][1];
+
+            const dynamicHeading4 = document.getElementById('dynamic-heading4');
+			dynamicHeading4.innerHTML = data.values[3][1];
+
+            const dynamicHeading5 = document.getElementById('dynamic-heading5');
+			dynamicHeading5.innerHTML = data.values[4][1];
+		})
+
+		.catch(error => {
+			console.error('Error:', error);
+		});
+}
+
+fetchData();
+</script>
+</html>
